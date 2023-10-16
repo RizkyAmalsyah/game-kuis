@@ -85,7 +85,81 @@
 
     
     <div class="d-grid play mb-5 px-5 text-center">
-      <button class="div-finish text-center rounded-5 fw-bold" id="show-sweetalert">Ambil Hadiah</button>
+      <button class="div-finish text-center rounded-5 fw-bold" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Ambil Hadiah</button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content modal-content-white">
+          <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body text-center">
+            <img src="{{ url('wawasan-umum-FE/assets/img/sweetaleert.gif') }}" alt="hadiah" width="800">
+            <p class="title">Selamat telah mengikuti kuis sampai akhir</p>
+            <p class="sub-title">Silahkan klik lanjut untuk ambil hadiah kamu</p>
+          </div>
+          <div class="modal-footer justify-content-center footer">
+            <button type="submit" class="btn btn-danger" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Keluar</button>
+            <button type="button" class="btn btn-success">Lanjut</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content modal-content-white">
+          <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body text-center">
+            <p class="title">Berikan kami feedback</p>
+            <form class="rating" method="post" action="{{ route('feedback-input', $quiz->id) }}">
+              @csrf
+              <div class="rating-input">
+                <label>
+                  <input type="radio" name="rating" value="1" />
+                  <span class="icon">★</span>
+                </label>
+                <label>
+                  <input type="radio" name="rating" value="2" />
+                  <span class="icon">★</span>
+                  <span class="icon">★</span>
+                </label>
+                <label>
+                  <input type="radio" name="rating" value="3" />
+                  <span class="icon">★</span>
+                  <span class="icon">★</span>
+                  <span class="icon">★</span>   
+                </label>
+                <label>
+                  <input type="radio" name="rating" value="4" />
+                  <span class="icon">★</span>
+                  <span class="icon">★</span>
+                  <span class="icon">★</span>
+                  <span class="icon">★</span>
+                </label>
+                <label>
+                  <input type="radio" name="rating" value="5" />
+                  <span class="icon">★</span>
+                  <span class="icon">★</span>
+                  <span class="icon">★</span>
+                  <span class="icon">★</span>
+                  <span class="icon">★</span>
+                </label>
+              </div>
+            </div>
+            <div class="modal-footer justify-content-center footer">
+              <button class="btn btn-primary" type="submit">Kirim</button>
+            </form>
+            <form id="logout-form" action="{{ url('logout') }}" method="POST">
+              @csrf
+              <button class="btn btn-danger">Keluar</button>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
 
     <form id="logout-form" action="{{ url('logout') }}" method="POST" hidden>
@@ -105,27 +179,27 @@
     // }
     // setTimeout(submitFormAndRedirect, 60000);
 
-    document.getElementById("show-sweetalert").addEventListener("click", function () {
-      Swal.fire({
-        title: 'Selamat Telah Mengikuti Kuis',
-        text: "Silahkan Klik Lanjut Untuk Ambil Hadiah Kamu",
-        imageUrl: '{{ url('wawasan-umum-FE/assets/img/sweetaleert.gif') }}',
-        imageWidth: 1000,
-        imageHeight: 800,
-        imageAlt: 'Custom image',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        cancelButtonText: 'Keluar',
-        confirmButtonText: 'Lanjut'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.href= '{{ route('finish', $quiz->id) }}'; // the redirect goes here
-        }
-        else {
-          document.getElementById('logout-form').submit();
-        }
-      })
-    })
+    // document.getElementById("show-sweetalert").addEventListener("click", function () {
+    //   Swal.fire({
+    //     title: 'Selamat Telah Mengikuti Kuis',
+    //     text: "Silahkan Klik Lanjut Untuk Ambil Hadiah Kamu",
+    //     imageUrl: '{{ url('wawasan-umum-FE/assets/img/sweetaleert.gif') }}',
+    //     imageWidth: 1000,
+    //     imageHeight: 800,
+    //     imageAlt: 'Custom image',
+    //     showCancelButton: true,
+    //     confirmButtonColor: '#3085d6',
+    //     cancelButtonColor: '#d33',
+    //     cancelButtonText: 'Keluar',
+    //     confirmButtonText: 'Lanjut'
+    //   }).then((result) => {
+    //     if (result.isConfirmed) {
+    //       window.location.href= '{{ route('finish', $quiz->id) }}'; // the redirect goes here
+    //     }
+    //     else {
+    //       document.getElementById('logout-form').submit();
+    //     }
+    //   })
+    // })
   </script>
 @endpush

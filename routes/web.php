@@ -50,6 +50,8 @@ Route::middleware(['auth', 'checkquiztakentoday'])->group(function () {
     Route::get('/question-5-notime/{id}', [Question5Controller::class, 'notime'])->name('question-5-notime');
     Route::get('/finish/{id}', [FinishController::class, 'index'])->name('finish');
     Route::get('/finish-end/{id}', [FinishController::class, 'process'])->name('finish-end');
+    Route::post('/feedback/{id}', [FinishController::class, 'store'])->name('feedback-input');
+
 });
 
 Route::prefix('admin')
@@ -62,6 +64,7 @@ Route::prefix('admin')
       Route::resource('quiz', 'QuizController');
       Route::post('/destroys', 'QuizController@destroys')->name('quiz.destroys');
       Route::resource('user', 'UserController');
+      Route::resource('feedback', 'FeedbackController');
     });
 
 require __DIR__.'/auth.php';

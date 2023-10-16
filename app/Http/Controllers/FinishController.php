@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Quiz;
 use App\Models\QuizDetail;
 use App\Models\User;
+use App\Models\Feedback;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -66,14 +67,6 @@ class FinishController extends Controller
     ->skip(2)
     ->get();
 
-    // $rankingu = User::select('users.*', DB::raw('SUM(quizzes.score) AS total_score'))
-    // ->leftJoin('quizzes', 'users.id', '=', 'quizzes.user_id')
-    // ->groupBy('users.id')
-    // ->orderBy('total_score', 'desc')
-    // ->take(1)
-    // ->where('user_id', Auth::user()->id)
-    // ->get();
-
     $user_id = Auth::user()->id;
 
     $rankingu = User::select('users.*', DB::raw('SUM(quizzes.score) AS total_score'))
@@ -118,4 +111,26 @@ class FinishController extends Controller
       'quiz' => $quiz
     ]);
   }
+
+  public function store(Request $request, $id)
+  {
+    $request->validate([
+      'rating' => 'required',
+    ]);
+
+    Feedback::create([
+      'quiz_id' => $id,
+      'user_id' => Auth::user()->id,
+      'rating' => $request->input('rating')
+    ]);
+
+    Auth::guard('web')->logout();
+
+    $request->session()->invalidate();
+
+    $request->session()->regenerateToken();
+
+    return redirect('/');
+  }
+  
 }

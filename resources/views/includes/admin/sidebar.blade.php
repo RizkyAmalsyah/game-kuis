@@ -34,11 +34,11 @@
         </a>
       </li>
 
-      {{-- <li class="nav-item">
-        <a class="nav-link {{ (request()->is('')) ? '' : 'collapsed' }}" href="">
-          <i class="bi bi-box2-heart"></i></i><span>Favorite</span>
+      <li class="nav-item">
+        <a class="nav-link {{ (request()->is('')) ? '' : 'collapsed' }}" href="{{ route('feedback.index') }}">
+          <i class="bi bi-star"></i></i><span>Feedback</span>
         </a>
-      </li> --}}
+      </li>
 
       <hr>
 
